@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %} | Панель пользователя {% endblock %}
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Панель пользователя</h1>
+          <p class="lead">Управляйте своей учетной записью</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index'%}">
+              <i class="fas fa-home"></i> Домой</a>
+          </li>
+          <li class="breadcrumb-item active"> Таблица</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+{% include 'partials/_alert.html' %}
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Здравствуйте, {{ User.first_name }}</h2>
+          {% if contacts %}
+            <p>Вот объявления недвижимости, о которых вы спрашивали</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Недвижимость</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for contact in contacts %}
+                <tr>
+                  <td>{{ contact.id }}</td>
+                  <td>{{ contact.listing }}</td>
+                  <td>
+                    <a class="btn btn-light" href="{% url 'listing' contact.listing_id %}">
+Посмотреть список</a>
+                  </td>
+                </tr>  
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p>Вы не делали никаких запросов </p>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
